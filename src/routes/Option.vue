@@ -24,7 +24,6 @@ export default {
       this.images = this.$refs.file.files[0];
     },
     async updateInfos() {
-      console.log(this.$store.state.connectedUser.id);
       const formData = new FormData();
       if (this.user.username) formData.append("username", this.user.username);
       if (this.user.firstname) formData.append("firstname", this.user.firstname);
@@ -33,7 +32,6 @@ export default {
       // if (this.user.password) formData.append("password", this.user.password);
       if (this.user.question) formData.append("question", this.user.question);
       if (this.user.reponse) formData.append("reponse", this.user.reponse);
-      console.log(formData);
       const headers = new Headers({
         Authorization: "Bearer " + this.$store.state.saveToken,
       });
@@ -46,7 +44,6 @@ export default {
     async sendAvatar(){
       const formData = new FormData();
       formData.append("image", this.images);
-      console.log(formData);
       const headers = new Headers({
         Authorization: "Bearer " + this.$store.state.saveToken,
         //"Content-type": "multipart/form-data"
@@ -57,7 +54,6 @@ export default {
       );
       const data = await res.json();
       this.$store.commit("SET_CONNECTED_USER", data.user);
-      console.log(data);
     } 
   },
 };
