@@ -7,14 +7,15 @@ export default {
   },
   data() {
     return {
-      images: null,
+      images: "",
+      changeAvatar: false,
       user: {
         firstname: this.$store.state.connectedUser.firstname,
         username: this.$store.state.connectedUser.username,
-        description: this.$store.state.connectedUser.description,
-        password: this.$store.state.connectedUser.password
+        description: this.$store.state.connectedUser.description
           ? this.$store.state.connectedUser.description
           : "",
+        password: this.$store.state.connectedUser.password
       },
     };
   },
@@ -23,44 +24,41 @@ export default {
       this.images = this.$refs.file.files[0];
     },
     async updateInfos() {
-      if (this.images !== null) {
-        const formData = new FormData();
-        if (this.images !== null)
-        formData.append("image", this.images);
-        if (this.user.username) formData.append("username", this.user.username);
-        if (this.user.username)
-          formData.append("firstname", this.user.username);
-        if (this.user.description)
-          formData.append("description", this.user.description);
-        if (this.user.password) formData.append("password", this.user.password);
-        if (this.user.question) formData.append("question", this.user.question);
-        if (this.user.reponse) formData.append("reponse", this.user.reponse);
-        const headers = new Headers({
-          Authorization: "Bearer " + this.$store.state.saveToken,
-          "Content-Type": "multipart/form-data"
-        });
-        const res = await fetch(
-          "http://localhost:3000/api/users/" +
-            this.$store.state.connectedUser.id,
-          { method: "PUT",
-          body: formData,
-          headers }
-        );
-        const data = await res.json();
-        this.$store.commit("SET_CONNECTED_USER", data);
-        return;
-      }
-      const headers = {
-        "Content-Type": "multipart/form-data",
+      console.log(this.$store.state.connectedUser.id);
+      const formData = new FormData();
+      if (this.user.username) formData.append("username", this.user.username);
+      if (this.user.firstname) formData.append("firstname", this.user.firstname);
+      if (this.user.description)
+        formData.append("description", this.user.description);
+      // if (this.user.password) formData.append("password", this.user.password);
+      if (this.user.question) formData.append("question", this.user.question);
+      if (this.user.reponse) formData.append("reponse", this.user.reponse);
+      console.log(formData);
+      const headers = new Headers({
         Authorization: "Bearer " + this.$store.state.saveToken,
-      };
+      });
       const res = await fetch(
         "http://localhost:3000/api/users/" + this.$store.state.connectedUser.id,
-        { method: "PUT", headers, body: JSON.stringify(this.user) }
+        { method: "PUT", body: formData, headers }
       );
       const data = await res.json();
-      this.$store.commit("SET_CONNECTED_USER", data);
     },
+    async sendAvatar(){
+      const formData = new FormData();
+      formData.append("image", this.images);
+      console.log(formData);
+      const headers = new Headers({
+        Authorization: "Bearer " + this.$store.state.saveToken,
+        //"Content-type": "multipart/form-data"
+      });
+      const res = await fetch(
+        "http://localhost:3000/api/users/avatar/" + this.$store.state.connectedUser.id,
+        { method: "PUT", body: formData, headers }
+      );
+      const data = await res.json();
+      this.$store.commit("SET_CONNECTED_USER", data.user);
+      console.log(data);
+    } 
   },
 };
 </script>
@@ -84,17 +82,20 @@ export default {
       </div>
       <div class="modify-info">
         Modifier votre mot de passe
-        <input class="name-area" type="text" v-model="this.user.password" placeholder="**********" />
+        <input
+          class="name-area"
+          type="text"
+          v-model="this.user.password"
+          placeholder="**********"
+        />
       </div>
       <br />
-      <input
-        @change="changeFile"
-        ref="file"
-        class="submit-avatar"
-        type="file"
-        value=""
-      />
-      <button @click="updateInfos">Upload</button>
+      <button @click="updateInfos">Modifir les infos</button>
+      <button @click="changeAvatar = !changeAvatar">Modifier l'avatar</button>
+      <div v-if="changeAvatar">
+      <input @change="changeFile" ref="file" class="submit-avatar" type="file" value="" />
+      <button @click="sendAvatar">Envoyer l'avatar</button>
+      </div>
     </div>
   </div>
 </template>
