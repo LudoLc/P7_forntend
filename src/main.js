@@ -87,9 +87,9 @@ const store = Vuex.createStore({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.auth && !localStorage.getItem("saveToken"))
+  if (to.meta.auth && !JSON.parse(localStorage.getItem("saveToken")))
     return next({ name: "login" });
-  if(!to.meta.auth && localStorage.getItem("saveToken"))
+  if(!to.meta.auth && JSON.parse(localStorage.getItem("saveToken")))
   return next({ name: "posts" });
   return next();
 });

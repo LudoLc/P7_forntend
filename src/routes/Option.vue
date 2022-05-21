@@ -7,7 +7,7 @@ export default {
   },
   data() {
     return {
-      images: "",
+      images: null,
       changeAvatar: false,
       user: {
         firstname: this.$store.state.connectedUser.firstname,
@@ -18,6 +18,13 @@ export default {
         password: this.$store.state.connectedUser.password
       },
     };
+  },
+  computed: {
+    avatar() {
+      if(this.images === null)
+      return this.$store.state.connectedUser.avatar;
+      return URL.createObjectURL(this.images);
+    }
   },
   methods: {
     changeFile() {
@@ -88,7 +95,8 @@ export default {
       <br />
       <button @click="updateInfos">Modifir les infos</button>
       <button @click="changeAvatar = !changeAvatar">Modifier l'avatar</button>
-      <div v-if="changeAvatar">
+      <div class="preview-avatar-to-midify" v-if="changeAvatar">
+        <img class="avatar-loaded-user" :src="avatar">
       <input @change="changeFile" ref="file" class="submit-avatar" type="file" value="" />
       <button @click="sendAvatar">Envoyer l'avatar</button>
       </div>
@@ -97,6 +105,13 @@ export default {
 </template>
 
 <style>
+
+.avatar-loaded-user{
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+}
+
 .modify-info {
   display: flex;
   flex-direction: column;
@@ -120,5 +135,7 @@ textarea {
 
 .name-area {
   height: 50px;
+  background-color: #091F43;
+  color: white;
 }
 </style>

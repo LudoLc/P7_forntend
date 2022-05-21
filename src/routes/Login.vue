@@ -43,7 +43,9 @@ export default {
     <h2 class="Login-title">Connectez-vous :</h2>
     <form @submit.prevent="submit">
       <div>
-        <label class="form" for="email">Email</label>
+        <label class="form" for="email">
+          <span class="form-login-acc-text">Email</span>
+        </label>
         <input aria-label="email-form" v-model="email" id="email" type="email" name="email" placeholder="xxx@xxxx.xx" />
         <ul v-if="'email' in errors">
           <li class="error" v-for="(error, i) of errors.email" :key="i">
@@ -52,7 +54,9 @@ export default {
         </ul>
       </div>
       <div>
-        <label class="form" for="password">Mot de passe</label>
+        <label class="form" for="password">
+          <span class="form-login-acc-text">Mot de passe</span>
+        </label>
         <input aria-label="password-form" v-model="password" id="password" type="password" name="password" placeholder="............"/>
         <ul v-if="'password' in errors">
           <li class="error" v-for="(error, i) of errors.password" :key="i">
@@ -71,7 +75,7 @@ export default {
 <style>
 
 body {
-  background-color: #091F43;
+  background-color: grey;
 }
 
 
@@ -86,6 +90,7 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
   color: white;
+
 }
 
 label {
@@ -95,9 +100,16 @@ label {
   padding: 10px;
 }
 
+.form-login-acc-text{
+
+  font-size: 20px;
+}
+
 input {
+  background-color: #091F43;
   height: 25px;
   padding-left: 5px;
+  color: white;
 }
 
 .bouton-submit {
@@ -111,6 +123,11 @@ input {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.bouton-submit:hover {
+    background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+    object-fit: cover;
 }
 
 form {
@@ -135,6 +152,8 @@ ul {
   padding-top: 20px;
   color: white;
   cursor: pointer;
+
+  font-size: 20px;
 }
 
 .connected-message {

@@ -12,20 +12,17 @@ export default {
   methods: {
       disconnectUser() {
         localStorage.clear();
-        this.$store.commit("", null);
+        this.$store.commit("SET_SAVE_TOKEN", null);
+        this.$store.commit("SET_CONNECTED_USER", {});
         this.$router.push({ name: "login" });
-        this.reloadPage();
       },
-      reloadPage(){
-        window.location.reload();
-      }
     }
 };
 </script>
 
 <template>
   <main>
-    <div class="header-container">
+    <div v-if="$store.state.saveToken" class="header-container">
       <div class="header-section">
         <router-link :to="{ name: 'login' }">
           <img class="header-img" src="../assets/logo_white.png" alt="header"/>
@@ -56,12 +53,23 @@ export default {
         <Toggle :mode="mode" @toggle="$emit('toggle')"/>
       </div>
     </div>
+    <div v-else class="header-container">
+      <div class="header-section">
+        <router-link :to="{ name: 'login' }">
+          <img class="header-img" src="../assets/logo_white.png" alt="header"/>
+        </router-link>
+        <h2 class="groupomania">Groupomania</h2>
+      </div>
+    </div>
   </main>
 </template>
 
 <style>
 body {
   margin: 0;
+  background-color: grey;
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
 }
 
 .header-container {
@@ -87,7 +95,7 @@ body {
   width: auto;
   height: auto;
   max-width: 60px;
-  max-height: 60px;
+  min-height: 60px;
   object-fit: cover;
   border-radius: 30px;
 }
@@ -96,7 +104,6 @@ body {
   color: white;
   padding-left: 10px;
   padding-right: 20px;
-  font-family: 'Lato', sans-serif;
 }
 
 .router-header-button {

@@ -117,7 +117,7 @@ export default {
         <span class="span-color">Commentaires</span>
       </div>
       <div>
-        <img @click="sendLike" class="like-img" :class="{active: reactions.find(e => e.UserId === $store.state.connectedUser.id)}" src="../assets/like.svg" alt="like" />
+        <img @click="sendLike" class="like-img" :class="{active: reactions.find(e => e.UserId === $store.state.connectedUser.id)}" src="../assets/like_white.png" alt="like" />
         <span class="span-color">Like</span>
         {{ reactions.filter(e => e.type === 1).length}}
         <img @click="sendDislike" class="like-img" :class="{active: reactions.find(e => e.UserId === $store.state.connectedUser.id)}" src="../assets/dislike_white.png" alt="like" />
@@ -130,7 +130,7 @@ export default {
       <li class="replyy" v-for="(comment, index) in comments" :key="comment">
         <div class="user-reply-info">
           <div class="user-infos">
-            <router-link :to="{name: 'user', params: {userId: comment.User.id}}"><img class="comment-logo" :src="this.$store.state.connectedUser.avatar" alt="logo-user"/></router-link>
+            <router-link :to="{name: 'user', params: {userId: comment.User.id}}"><img class="comment-logo" :src="comment.User?.avatar" alt="logo-user"/></router-link>
             <router-link class="name-container" :to="{name: 'user', params: {userId: comment.User.id}}">
               <span class="span-color">{{ comment.User.firstname }}</span> 
               <span class="span-color">{{ comment.User.username }}</span>
@@ -139,7 +139,7 @@ export default {
           </div>
           <form class="comment-content-area" v-if="comment.displayEdit" @submit.prevent="submitCommentEdit(index)">
             <textarea v-model="comment.content" ></textarea>
-            <input aria-label="input-modified" class="input-modified-comment" type="submit">
+            <button aria-label="input-modified" class="input-modified-comment" type="submit"></button>
           </form>
           <p class="span-color" v-else>{{ comment.content }}</p>
         </div>
@@ -177,6 +177,7 @@ export default {
   color: white;
   justify-content: space-between;
   align-items: center;
+  margin: 0;
 }
 
 .user-infos .name-container {
@@ -209,6 +210,7 @@ export default {
   padding-left: 10px;
   margin-bottom: 10px;
   height: 40px;
+  background-color: white;
 }
 
 .replyy {
@@ -287,6 +289,7 @@ export default {
 .dots-modifications-li {
   cursor: pointer;
   padding-left: 20px;
+
 }
 
 .dots-modifications-li:hover {
@@ -300,13 +303,13 @@ export default {
 .dots-delete-comment {
   cursor: pointer;
   padding-left: 20px;
+
 }
 
 .like-img {
   cursor: pointer;
   height: 20px;
   width: 20px;
-  opacity: 0.5;
   color: #040404;
 }
 

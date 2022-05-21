@@ -65,42 +65,54 @@ export default {
   <div class="main-body">
   <h2 class="Login-title">Créez un compte</h2>
   <form @submit.prevent="submit">
-  <label class="form" for="email">Email</label>
+  <label class="form" for="email">
+    <span class="form-creat-acc-text">Email</span>
+  </label>
   <input v-model="email" id="email" type="email" name="email" placeholder="xxx@xxxx.xx" />
   <ul v-if="'email' in errors">
     <li class="error" v-for="(error, i) of errors.email" :key="i">
       {{ error }}
     </li>
   </ul>
-  <label class="form" for="username">Nom</label>
+  <label class="form" for="username">
+    <span class="form-creat-acc-text">Nom</span>
+  </label>
   <input v-model="username" id="username" type="username" name="username" placeholder="*********" />
   <ul v-if="'username' in errors">
     <li class="error" v-for="(error, i) of errors.username" :key="i">
       {{ error }}
     </li>
   </ul>
-  <label class="form" for="firstname">Prénom</label>
+  <label class="form" for="firstname">
+    <span class="form-creat-acc-text">Prénom</span>
+  </label>
   <input v-model="firstname" id="firstname" type="firstname" name="firstname" placeholder="*********" />
   <ul v-if="'firstname' in errors">
     <li class="error" v-for="(error, i) of errors.firstname" :key="i">
       {{ error }}
     </li>
   </ul>
-  <label class="form" for="password">Password</label>
+  <label class="form" for="password">
+    <span class="form-creat-acc-text">Mot de passe</span>
+  </label>
   <input v-model="password" id="password" type="password" name="password" placeholder="*********" />
   <ul v-if="'password' in errors">
     <li class="error" v-for="(error, i) of errors.password" :key="i">
       {{ error }}
     </li>
   </ul>
-  <label class="form" for="question">Question</label>
+  <label class="form" for="question">
+    <span class="form-creat-acc-text">Question</span>
+  </label>
   <input v-model="question" id="question" type="question" name="question" placeholder="*********" />
   <ul v-if="'question' in errors">
     <li class="error" v-for="(error, i) of errors.question" :key="i">
       {{ error }}
     </li>
   </ul>
-  <label class="form" for="response">Réponse</label>
+  <label class="form" for="response">
+    <span class="form-creat-acc-text">Réponse</span>
+  </label>
   <input v-model="response" id="response" type="response" name="response" placeholder="*********" />
   <ul v-if="'response' in errors">
     <li class="error" v-for="(error, i) of errors.response" :key="i">
@@ -120,5 +132,10 @@ export default {
   padding-top: 20px;
   color: white;
   cursor: pointer;
+}
+
+.form-creat-acc-text {
+
+  font-size: 20px;
 }
 </style>

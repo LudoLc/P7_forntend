@@ -15,7 +15,7 @@ export default {
       image: null,
     };
   },
-  mounted() {
+  created() {
     this.loadPosts();
   },
   methods: {
@@ -132,7 +132,7 @@ export default {
         <textarea aria-label="textbox" class="" v-model="content" placeholder=" Ecrivez votre poste..."></textarea>
         </div>
         <div class="bottom-post-section">
-          <input aria-label="create-box" @click="createPost" class="create-post" type="submit" value="Créer poste"/>
+          <button aria-label="create-box" @click="createPost" class="create-post" type="submit">Créer poste</button>
           <input aria-label="submit-box" @change="sendFile" ref="file" class="submit-file" type="file" value=""/>
         </div>
       </div>
@@ -141,8 +141,8 @@ export default {
         <router-link :to="{ name: 'user', params: {userId: post.UserId} }">
           <img class="comment-logo" :src="post.User?.avatar" alt="logo-avatar"/>
         </router-link>
-        <span class="span-color">{{ post.User?.username }}</span>
-        <span class="span-color">{{ post.User?.firstname }}</span>
+        <span class="span-color"> {{ post.User?.username }}</span>
+        <span class="span-color"> {{ post.User?.firstname }}</span>
         <span class="span-color">{{ new Date(post.createdAt).toLocaleString() }}</span>
         </div>
         <div class="content-post-general">
@@ -174,7 +174,7 @@ export default {
 
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 .main-container {
-  background-color: #091f43;
+  background-color: #867f7f;
   color: white;
 }
 
@@ -182,14 +182,11 @@ export default {
   justify-content: center;
   display: flex;
   width: 550px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-font-family: 'Lato', sans-serif;
 }
 
 .create-post-section {
       min-width: 700px;
-    background-color: #867f7f;
+    background-color: #091F43;
     display: inline;
     border-radius: 15px;
     padding: 10px;
@@ -217,6 +214,7 @@ font-family: 'Lato', sans-serif;
   height: 40px;
   width: 120px;
   border-radius: 25px;
+  background-color: white;
 }
 
 .submit-file {
@@ -225,7 +223,7 @@ font-family: 'Lato', sans-serif;
 
 .post-title {
   text-align: center;
-  font-family: 'Lato', sans-serif;
+
 }
 
 .post-logo {
@@ -236,13 +234,13 @@ font-family: 'Lato', sans-serif;
 }
 
 .span-color {
-  color: #040404;
-  font-family: 'Lato', sans-serif;
+  color: white;
+
 }
 
 p.span-color{
-  color: #040404;
-  font-family: 'Lato', sans-serif;
+  color: white;
+
 }
 
 .user-comment-section {
@@ -283,7 +281,7 @@ p.span-color{
 
 .comment-section {
       display: flex;
-    background-color: #867f7f;
+    background-color: #091F43;
     flex-direction: column;
     min-width: 725px;
     width: 100%;
