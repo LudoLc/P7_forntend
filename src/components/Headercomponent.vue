@@ -27,7 +27,7 @@ export default {
         <router-link :to="{ name: 'login' }">
           <img class="header-img" src="../assets/logo_white.png" alt="header"/>
         </router-link>
-        <h2 class="groupomania">Groupomania</h2>
+        <h1 class="groupomania">Groupomania</h1>
         <div class="buttons">
           <router-link :to="{ name: 'posts' }">
             <button id="myButton" class="router-header-button">

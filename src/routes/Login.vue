@@ -126,7 +126,7 @@ input {
 }
 
 .bouton-submit:hover {
-    background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+    background: linear-gradient(90deg, rgba(108,224,247,1) 0%, rgba(30,12,226,1) 100%);
     object-fit: cover;
 }
 

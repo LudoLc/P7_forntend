@@ -57,22 +57,25 @@ export default {
 .users-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .container-info-user {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 350px;
+  height: 380px;
   min-width: 300px;
   background-color: #091F43;
   margin: 10px;
+  border-radius: 20px;
 }
 
 .list-users {
-  width: 25%;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  min-width: 25%;
 }
 
 .logo-user-info {

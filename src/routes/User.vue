@@ -32,7 +32,6 @@ export default {
       });
       user.Comments = null;
       this.user = user;
-      console.log(user);
     },
   },
 };
@@ -47,6 +46,7 @@ export default {
           <p class="user-infos">Nom: {{ user.username }}</p>
           <p class="user-infos">Prénom: {{ user.firstname }}</p>
           <p class="user-infos">Contact: {{ user.email }}</p>
+          <p class="user-infos">Description: {{ user.description }}</p>
           <p class="user-infos">Crée le: {{ user.createdAt }}</p>
         </div>
       </div>
@@ -64,6 +64,14 @@ export default {
           <span>Commentaire: {{ comment.content }}</span>
         </div>
       </div>
+      <div class="posts-user-id-none" v-if="user.Posts?.length == 0">
+        Cet Utilisateur n'a rien posté dernièrement
+        <img src="../assets/warning.gif" />
+        <div class="comments-user-id-none" v-if="user.Comments?.length == 0">
+          Cet Utilisateur n'a rien commenté dernièrement
+          <img src="../assets/warning.gif" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -77,8 +85,8 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: #091f43;
-  width: 350px;
-  min-height: 300px;
+  width: 400px;
+  min-height: 350px;
   align-items: center;
   gap: 20px;
 }
