@@ -14,7 +14,12 @@ export default {
   },
   methods: {
     async loadUsers() {
-      const res = await fetch("http://localhost:3000/api/users");
+      const res = await fetch("http://localhost:3000/api/users", {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + this.$store.state.saveToken
+        },
+      });
       const users = await res.json();
       this.users = users;
     },

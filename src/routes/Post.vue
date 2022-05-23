@@ -20,7 +20,11 @@ export default {
   },
   methods: {
     async loadPosts() {
-      const res = await fetch("http://localhost:3000/api/posts");
+      const res = await fetch("http://localhost:3000/api/posts", {
+        headers: {
+          Authorization: "Bearer " + this.$store.state.saveToken,
+        },
+      });
       const posts = await res.json();
       this.posts = posts.map((post) => {
         return {
@@ -65,6 +69,8 @@ export default {
           body: formData,
           headers,
         });
+        this.content = "";
+        this.image = null ;
         this.loadPosts();
         return;
       }
@@ -77,6 +83,7 @@ export default {
         headers,
         body: JSON.stringify({ content: this.content }),
       });
+      this.content = "";
       this.loadPosts();
     },
     togglePost(index){

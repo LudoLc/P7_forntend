@@ -44,6 +44,7 @@ export default {
       const message = await res.json();
       this.message = message;
       this.$emit('refreshComments');
+      this.content = "";
     },
     toggleOptions(index) {
       this.comments[index].displayOptions = !this.comments[index].displayOptions;
@@ -139,7 +140,7 @@ export default {
           </div>
           <form class="comment-content-area" v-if="comment.displayEdit" @submit.prevent="submitCommentEdit(index)">
             <textarea v-model="comment.content" ></textarea>
-            <button aria-label="input-modified" class="input-modified-comment" type="submit"></button>
+            <button aria-label="input-modified" class="input-modified-comment" type="submit">Modifier</button>
           </form>
           <p class="span-color" v-else>{{ comment.content }}</p>
         </div>
@@ -259,7 +260,10 @@ export default {
 }
 
 .input-modified-comment {
-  float: right;
+    color: black;
+    float: right;
+    height: 50px;
+    width: 100px;
 }
 
 .dots {

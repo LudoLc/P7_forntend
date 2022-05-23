@@ -18,7 +18,11 @@ export default {
   methods: {
     async loadUser() {
       const userId = this.$route.params.userId;
-      const res = await fetch("http://localhost:3000/api/users/" + userId);
+      const res = await fetch("http://localhost:3000/api/users/" + userId,{
+        headers: {
+          Authorization: "Bearer " + this.$store.state.saveToken,
+        },
+    });
       let user = await res.json();
       user.Posts = user.Posts.map((e) => {
         let comment = [];
