@@ -130,7 +130,7 @@ export default {
 
 <template>
   <div class="main-container">
-    <div class="xxx">
+    <div class="container-general">
       <h1 class="missing-content">Ce que vous avez peut-être raté !</h1>
       <div class="create-post-section">
     <h2 class="post-title">Racontez-nous...</h2>
@@ -201,6 +201,8 @@ export default {
     flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
+    box-shadow: 15px 2px 22px 11px rgba(0,0,0,0.17);
+
 }
 
 .post-content {
@@ -261,13 +263,13 @@ p.span-color{
     align-items: center;
 }
 
-.xxx {
+.container-general {
     margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 20px;
+    gap: 50px;
     max-width: 725px;
 }
 
@@ -294,6 +296,7 @@ p.span-color{
     width: 100%;
     border-radius: 20px;
     padding-top: 10px;
+    box-shadow: 15px 2px 22px 11px rgba(0,0,0,0.17);
 }
 
 .content-post-general {
@@ -314,6 +317,10 @@ p.span-color{
 @media screen and (max-width: 388px) {
   .create-post-section{
     min-width: 300px;
+    box-shadow: none;
+  }
+  .comment-section{
+    box-shadow: none;
   }
   
   .create-post-area
@@ -323,6 +330,10 @@ p.span-color{
 
   .submit-file{
     max-width: 165px;
+  }
+  .span-color {
+    word-break: break-all;
+    font-size: 12px;
   }
 
   .missing-content{

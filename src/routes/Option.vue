@@ -158,7 +158,7 @@ export default {
   text-align: center;
   gap: 20px;
   padding-top: 10px;
-  max-width: 350px;
+  max-width: 300px;
   width: 100%;
 }
 
@@ -188,14 +188,17 @@ textarea {
 .button-update-infos {
   height: 50px;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .button-change-avatar {
+  cursor: pointer;
   height: 50px;
   border-radius: 20px;
 }
 
 .button-delete-account    {
+  cursor: pointer;
   width: 200px;
   height: 50px;
   border-radius: 20px;
@@ -235,6 +238,10 @@ textarea {
 
 #update-avatar{
   display: none;
+}
+
+.update-avatar {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 351px) {
