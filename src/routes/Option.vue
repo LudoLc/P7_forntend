@@ -46,7 +46,6 @@ export default {
       );
       const data = await res.json();
       this.$store.commit("SET_CONNECTED_USER", data);
-      console.log(data);
     },
     async sendAvatar() {
       const formData = new FormData();
@@ -61,6 +60,18 @@ export default {
       );
       const data = await res.json();
       this.$store.commit("SET_CONNECTED_USER", data.user);
+    },
+    async deleteUser(){
+      const res = await fetch("http://localhost:3000/api/users/"+ this.$store.state.connectedUser.id, {
+        method: "DELETE",
+        headers: {
+          "Authorization": "Bearer " + this.$store.state.saveToken
+        },
+      })
+      localStorage.clear();
+      this.$store.commit("SET_SAVE_TOKEN", null);
+      this.$store.commit("SET_CONNECTED_USER", {});
+      this.$router.push({ name: "login" });
     },
   },
 };
@@ -118,7 +129,8 @@ export default {
               value=""
               id="update-avatar"
             />
-            <button @click="sendAvatar">Envoyer l'avatar</button>
+            <button class="update-avatar" @click="sendAvatar">Envoyer l'avatar</button>
+            <button  class="button-delete-account" @click="deleteUser">Supprimer le compte</button>
           </div>
         </div>
       </div>
@@ -183,6 +195,13 @@ textarea {
   border-radius: 20px;
 }
 
+.button-delete-account    {
+  width: 200px;
+  height: 50px;
+  border-radius: 20px;
+  margin: 20px;
+  background-color: #D1515A;
+}
 .preview-avatar-to-modify {
   display: flex;
   flex-direction: column;
