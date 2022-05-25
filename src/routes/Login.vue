@@ -75,7 +75,7 @@ export default {
 <style>
 
 body {
-  background-color: grey;
+  background-color: #D7D7D7;
 }
 
 
@@ -89,7 +89,7 @@ body {
 .Login-title {
   padding-top: 20px;
   padding-bottom: 20px;
-  color: white;
+  color: #0c182d;
 
 }
 
@@ -101,7 +101,7 @@ label {
 }
 
 .form-login-acc-text{
-
+  color: #0c182d;
   font-size: 20px;
 }
 
@@ -137,11 +137,11 @@ form {
 
 ul {
   padding: 0;
-  text-decoration-style: none;
+  text-decoration: none;
 }
 .error {
   width: 100%;
-  text-decoration-style: none;
+  text-decoration: none;
   color: red;
   display: flex;
   justify-content: center;
@@ -160,6 +160,6 @@ ul {
   padding-top: 20px;
   display: flex;
   justify-content: center;
-  color: white;
+  color: #0c182d;
 }
 </style>
