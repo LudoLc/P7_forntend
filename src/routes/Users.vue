@@ -44,7 +44,7 @@ export default {
     <div class="list-users" v-for="user of users" :key="user.id">
       <div class="container-info-user">
         <router-link :to="{ name: 'user', params: {userId: user.id} }">
-          <img v-if="user.avatar" class="logo-user-info" :src="user.avatar">
+          <img v-if="user.avatar" class="logo-user-info" :src="user.avatar" alt="logo-avatar">
         </router-link>
         
         <p class="user-list-infos">Nom: {{ user.firstname }}</p>

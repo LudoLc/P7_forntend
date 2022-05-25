@@ -71,26 +71,28 @@ export default {
     <div class="main-container-options">
       <div class="infos">
         <div class="modify-info">
-          Modifier votre nom
-          <input class="name-area" type="text" v-model="this.user.username" />
+          <span class="title-input-modify">Modifier votre nom</span>  
+          <input aria-label="username-area" class="name-area" type="text" v-model="this.user.username" />
         </div>
         <div class="modify-info">
-          Modifier votre prénom
-          <input class="name-area" type="text" v-model="this.user.firstname" />
+          <span class="title-input-modify">Modifier votre prénom</span>  
+          <input aria-label="firstname-area" class="name-area" type="text" v-model="this.user.firstname" />
         </div>
         <div class="modify-info">
-          Modifier votre description
+          <span class="title-input-modify">Modifier votre description</span>  
           <input
+          aria-label="description"
             class="name-area"
             type="text"
             v-model="this.user.description"
           />
         </div>
         <div class="modify-info">
-          Modifier votre mot de passe
+          <span class="title-input-modify">Modifier votre password</span>  
           <input
+          aria-label="password"
             class="name-area"
-            type="text"
+            type="password"
             v-model="this.user.password"
             placeholder="**********"
           />
@@ -101,19 +103,20 @@ export default {
           </button>
           <button
             class="button-change-avatar"
-            @click="changeAvatar = !changeAvatar"
-          >
-            Modifier l'avatar
+            @click="$refs.file.click()"
+          >Modifier l'avatar
           </button>
-          <div class="preview-avatar-to-modify" v-if="changeAvatar">
+          <div class="preview-avatar-to-modify">
             <span class="avatar-preview">Preview de l'avatar</span>
-            <img class="avatar-loaded-user" :src="avatar" />
+            <img class="avatar-loaded-user" :src="avatar" alt="loaded-avatar"/>
             <input
+            aria-label="avatar"
               @change="changeFile"
               ref="file"
               class="submit-avatar"
               type="file"
               value=""
+              id="update-avatar"
             />
             <button @click="sendAvatar">Envoyer l'avatar</button>
           </div>
@@ -125,7 +128,7 @@ export default {
 
 <style>
 .main-container-options {
-  background-color: #867f7f;
+  background-color: #D7D7D7;
   color: white;
   display: flex;
   justify-content: center;
@@ -133,7 +136,7 @@ export default {
 
 .avatar-loaded-user {
   width: 350px;
-  height: 200px;
+  height: 400px;
   object-fit: cover;
 }
 
@@ -143,12 +146,19 @@ export default {
   text-align: center;
   gap: 20px;
   padding-top: 10px;
+  max-width: 350px;
+  width: 100%;
 }
 
 .modify-info {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 100%;
+}
+
+.title-input-modify {
+  color: #0c182d;
+  font-family: 'Lato', sans-serif;
 }
 
 textarea {
@@ -156,6 +166,7 @@ textarea {
   height: 50px;
   width: 100%;
   border-radius: 5px;
+  resize: none;
 }
 
 .button-area {
@@ -181,14 +192,15 @@ textarea {
 
 .avatar-preview {
   padding: 10px;
+  color: #0c182d;
 }
 
 .submit-avatar {
-  background-color: grey;
+  background-color: #D7D7D7;
 }
 
 .submit-info {
-  background-color: grey;
+  background-color: #D7D7D7;
   width: 100px;
 }
 
@@ -197,4 +209,20 @@ textarea {
   background-color: #091f43;
   color: white;
 }
+
+.updated-avatar{
+  color: black;
+}
+
+#update-avatar{
+  display: none;
+}
+
+@media screen and (max-width: 351px) {
+  .avatar-loaded-user{
+    max-width: 300px;
+    height: 200px;
+  }
+}
+
 </style>

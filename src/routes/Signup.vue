@@ -130,12 +130,12 @@ export default {
 <style>
   .redirect-create-acc {
   padding-top: 20px;
-  color: white;
+  color: #0c182d;
   cursor: pointer;
 }
 
 .form-creat-acc-text {
-
+  color: #0c182d;
   font-size: 20px;
 }
 </style>

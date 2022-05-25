@@ -71,6 +71,7 @@ export default {
         });
         this.content = "";
         this.image = null ;
+        document.querySelector(".submit-file").value = "";
         this.loadPosts();
         return;
       }
@@ -121,6 +122,7 @@ export default {
         { method: "PUT", headers, body: JSON.stringify(this.user) }
       );
       this.loadPosts();
+      
     },
   },
 };
@@ -136,7 +138,7 @@ export default {
         <router-link :to="{ name: 'options' }">
           <img class="comment-logo" :src="this.$store.state.connectedUser.avatar" alt="comment"/>
         </router-link>
-        <textarea aria-label="textbox" class="" v-model="content" placeholder=" Ecrivez votre poste..."></textarea>
+        <textarea aria-label="textbox" class="create-post-area" v-model="content" placeholder=" Ecrivez votre poste..."></textarea>
         </div>
         <div class="bottom-post-section">
           <button aria-label="create-box" @click="createPost" class="create-post" type="submit">Créer poste</button>
@@ -155,7 +157,6 @@ export default {
         <div class="content-post-general">
           <img v-if="this.$store.state.connectedUser.Role?.admin  || $store.state.connectedUser.id === post.UserId" @click="deletePost(post)" class="delete-logo" src="../assets/corbeille_white.png" alt="delete-button"/>
           <img v-if="this.$store.state.connectedUser.Role?.admin  || $store.state.connectedUser.id === post.UserId" @click="toggleModifyPost(index)" class="edit-post" src="../assets/edit.png" alt="toggle-post"/>
-          <br />
         </div>
         <div class="content-post-text">
           <form class="comment-content-area" v-if="post.displayModifyPost" @submit.prevent="submitPostEdit(index)">
@@ -181,22 +182,25 @@ export default {
 
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 .main-container {
-  background-color: #867f7f;
   color: white;
 }
 
 .missing-content {
   justify-content: center;
   display: flex;
-  width: 550px;
+  width: 100%;
+  flex-wrap: wrap;
+  color: #0c182d;
 }
 
 .create-post-section {
-      min-width: 700px;
+      max-width: 725px;
     background-color: #091F43;
-    display: inline;
     border-radius: 15px;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .post-content {
@@ -217,11 +221,13 @@ export default {
 }
 
 .create-post {
-  cursor: pointer;
-  height: 40px;
-  width: 120px;
-  border-radius: 25px;
-  background-color: white;
+    cursor: pointer;
+    height: 40px;
+    width: 120px;
+    border-radius: 25px;
+    background-color: white;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 .submit-file {
@@ -256,33 +262,27 @@ p.span-color{
 }
 
 .xxx {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 400px;
-  gap: 20px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+    max-width: 725px;
 }
 
 .edit-post {
-      padding-top: 5px;
-    cursor: pointer;
-    margin-top: 10px;
+  
     width: 20px;
     height: 20px;
-    position: relative;
-    left: 654px;
-    top: -50px;
+  
 }
 
 .delete-logo {
-    cursor: pointer;
-    margin-top: 10px;
+  
     width: 20px;
     height: 20px;
-    position: relative;
-    left: 650px;
-    top: -45px;
+  
 }
 
 
@@ -290,7 +290,7 @@ p.span-color{
       display: flex;
     background-color: #091F43;
     flex-direction: column;
-    min-width: 725px;
+    max-width: 725px;
     width: 100%;
     border-radius: 20px;
     padding-top: 10px;
@@ -298,7 +298,8 @@ p.span-color{
 
 .content-post-general {
   display: flex;
-  justify-content: flex-start;
+  justify-content: right;
+  margin-right: 10px;
 }
 
 .content-post-text {
@@ -310,4 +311,22 @@ p.span-color{
 }
 
 
+@media screen and (max-width: 388px) {
+  .create-post-section{
+    min-width: 300px;
+  }
+  
+  .create-post-area
+  {
+    max-width: 235px;
+  }
+
+  .submit-file{
+    max-width: 165px;
+  }
+
+  .missing-content{
+    font-size: 20px;
+  }
+}
 </style>

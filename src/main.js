@@ -9,6 +9,8 @@ import Post from "./routes/Post.vue";
 import Option from "./routes/Option.vue";
 import User from "./routes/User.vue";
 
+
+
 const routes = [
   {
     path: "/login",
@@ -96,6 +98,10 @@ router.beforeEach((to, from, next) => {
 
 const app = createApp(App);
 
+
 app.use(store);
 app.use(router);
+
 app.mount("#app");
+
+

@@ -133,16 +133,16 @@ export default {
           <div class="user-infos">
             <router-link :to="{name: 'user', params: {userId: comment.User.id}}"><img class="comment-logo" :src="comment.User?.avatar" alt="logo-user"/></router-link>
             <router-link class="name-container" :to="{name: 'user', params: {userId: comment.User.id}}">
-              <span class="span-color">{{ comment.User.firstname }}</span> 
-              <span class="span-color">{{ comment.User.username }}</span>
+              <span class="span-color-comment">{{ comment.User.firstname }}</span> 
+              <span class="span-color-comment">{{ comment.User.username }}</span>
             </router-link>
-            <span class="span-color">{{ new Date(comment.updatedAt).toLocaleString() }}</span>
+            <span class="span-color-comment">{{ new Date(comment.updatedAt).toLocaleString() }}</span>
           </div>
           <form class="comment-content-area" v-if="comment.displayEdit" @submit.prevent="submitCommentEdit(index)">
             <textarea v-model="comment.content" ></textarea>
             <button aria-label="input-modified" class="input-modified-comment" type="submit">Modifier</button>
           </form>
-          <p class="span-color" v-else>{{ comment.content }}</p>
+          <p class="span-color-comment" v-else>{{ comment.content }}</p>
         </div>
         <img
           @click="toggleOptions(index)"
@@ -228,7 +228,7 @@ export default {
 }
 
 .user-reply-info {
-  background-color: #bebaba;
+  background-color: #D7d7d7;
   width: auto;
   padding: 5px;
   border-radius: 10px;
@@ -257,6 +257,10 @@ export default {
 
 .comment-content-area{
   width: 100%;
+}
+
+.span-color-comment {
+  color: #091F43;
 }
 
 .input-modified-comment {

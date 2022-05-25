@@ -1,13 +1,14 @@
 <script>
 export default {
+  name: 'App',
+  metaInfo: {
+    title: "Groupomania"
+  },
   props: {
     links: {
       type: Array,
       required: false,
     },
-  },
-  components: {
-    
   },
   methods: {
       disconnectUser() {
@@ -29,28 +30,23 @@ export default {
         </router-link>
         <h1 class="groupomania">Groupomania</h1>
         <div class="buttons">
-          <router-link :to="{ name: 'posts' }">
-            <button id="myButton" class="router-header-button">
+          <router-link id="myButton1" class="router-header-button" :to="{ name: 'posts' }">
               Workplace
-            </button>
           </router-link>
-          <router-link :to="{ name: 'users' }">
-            <button id="myButton" class="router-header-button">
+          <router-link id="myButton2" class="router-header-button" :to="{ name: 'users' }">
               Utilisateurs
-            </button>
           </router-link>
-          <router-link :to="{ name: 'options' }">
-            <button id="myButton" class="router-header-button">Options</button>
+          <router-link id="myButton3" class="router-header-button" :to="{ name: 'options' }">
+            Options
           </router-link>
         </div>
       </div>
       <div class="header-section">
         <router-link v-if="this.$store.state.connectedUser" :to="{ name: 'options' }">
-        <img v-if="this.$store.state.connectedUser.avatar" class="header-img" :src="this.$store.state.connectedUser.avatar"/>
-        <img v-else class="header-img" src="../assets/profile_white.png" />
+        <img v-if="this.$store.state.connectedUser.avatar" class="header-img" :src="this.$store.state.connectedUser.avatar" alt="header"/>
+        <img v-else class="header-img" src="../assets/profile_white.png" alt="profile-pic"/>
         </router-link>
-        <img @click="disconnectUser()" class="header-img" src="../assets/onoff_white.png" />
-        <Toggle :mode="mode" @toggle="$emit('toggle')"/>
+        <img @click="disconnectUser()" class="header-img" src="../assets/onoff_white.png" alt="on-off-img"/>
       </div>
     </div>
     <div v-else class="header-container">
@@ -67,7 +63,7 @@ export default {
 <style>
 body {
   margin: 0;
-  background-color: grey;
+  background-color: #D7D7D7;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
 }
@@ -79,6 +75,7 @@ body {
   justify-content: space-between;
   background-color: #d1515a;
   height: 100px;
+  align-items: baseline;
 }
 
 .header-section {
@@ -92,10 +89,8 @@ body {
 
 .header-img {
   cursor: pointer;
-  width: auto;
-  height: auto;
-  max-width: 60px;
-  min-height: 60px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
   border-radius: 30px;
 }
@@ -107,19 +102,59 @@ body {
 }
 
 .router-header-button {
-  height: 40px;
-  width: 100px;
-  border-radius: 20px;
+      height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    color: black;
+    background-color: white;
+    align-self: center;
+    line-height: 40px;
+    text-decoration: none;
+    text-align: center;
 }
 
-#myButton {
+#myButton1 {
   cursor: pointer;
 }
 
+#myButton2 {
+  cursor: pointer;
+}
+
+#myButton3 {
+  cursor: pointer;
+}
 .buttons {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
+@media screen and (max-width: 871px){
+  .header-container {
+    justify-content: center;
+    height: auto;
+  }
+}
+@media screen and (max-width: 362px){    
+  .header-container {
+    width: 100%;
+  }
+  .buttons {
+    justify-content: center;
+  }
+
+  .users-list {
+    padding: 5px;
+  }
+
+  .container-info-user {
+    width: 100%;
+    max-width: 300px;
+    padding: 5px;
+  }
+
+
+}
 
 </style>
