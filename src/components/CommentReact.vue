@@ -22,11 +22,11 @@ export default {
     reactions: {
       type: Array,
       required: false,
-    }
+    },
   },
   methods: {
-    toggleComments(){
-      this.showComments = !this.showComments
+    toggleComments() {
+      this.showComments = !this.showComments;
     },
     async sendComment() {
       const deliverMessage = {
@@ -43,43 +43,50 @@ export default {
       });
       const message = await res.json();
       this.message = message;
-      this.$emit('refreshComments');
+      this.$emit("refreshComments");
       this.content = "";
     },
     toggleOptions(index) {
-      this.comments[index].displayOptions = !this.comments[index].displayOptions;
+      this.comments[index].displayOptions =
+        !this.comments[index].displayOptions;
     },
-    toggleEditComment(index){
+    toggleEditComment(index) {
       this.comments[index].displayEdit = !this.comments[index].displayEdit;
       this.comments[index].displayOptions = false;
     },
-    async submitCommentEdit(index){
+    async submitCommentEdit(index) {
       const comment = this.comments[index];
-      const res = await fetch("http://localhost:3000/api/comments/" +comment.id, {
-        method: "PUT",
-        body: JSON.stringify(comment),
-        headers: {
-          Authorization: "Bearer " + this.$store.state.saveToken,
-          "Content-Type": "application/json",
-        },
-      });
-      this.$emit('refreshComments');
+      const res = await fetch(
+        "http://localhost:3000/api/comments/" + comment.id,
+        {
+          method: "PUT",
+          body: JSON.stringify(comment),
+          headers: {
+            Authorization: "Bearer " + this.$store.state.saveToken,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      this.$emit("refreshComments");
     },
-    async deleteComment(index){
+    async deleteComment(index) {
       const comment = this.comments[index];
-      const res = await fetch("http://localhost:3000/api/comments/" +comment.id, {
-        method: "DELETE",
-        headers: {
-          "Authorization": "Bearer " + this.$store.state.saveToken
-        },
-      });
-      this.$emit('refreshComments');
+      const res = await fetch(
+        "http://localhost:3000/api/comments/" + comment.id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + this.$store.state.saveToken,
+          },
+        }
+      );
+      this.$emit("refreshComments");
     },
-    async sendReaction(type){
+    async sendReaction(type) {
       const reaction = {
         type,
         PostId: this.postId,
-      }
+      };
       const res = await fetch("http://localhost:3000/api/reactions", {
         method: "POST",
         body: JSON.stringify(reaction),
@@ -89,18 +96,17 @@ export default {
         },
       });
       const reactions = await res.json();
-      if(reactions.isWarning == true)
-      alert (reactions.message)
-      this.$emit('refreshComments');
+      if (reactions.isWarning == true) alert(reactions.message);
+      this.$emit("refreshComments");
     },
-    async sendLike(){
+    async sendLike() {
       await this.sendReaction(1);
-      this.$emit('refreshComments');
+      this.$emit("refreshComments");
     },
-    async sendDislike(){
+    async sendDislike() {
       await this.sendReaction(0);
-      this.$emit('refreshComments');
-    }
+      this.$emit("refreshComments");
+    },
   },
 };
 </script>
@@ -118,29 +124,79 @@ export default {
         <span class="span-color">Commentaires</span>
       </div>
       <div>
-        <img @click="sendLike" class="like-img" :class="{active: reactions.find(e => e.UserId === $store.state.connectedUser.id)}" src="../assets/like_white.png" alt="like" />
+        <img
+          @click="sendLike"
+          class="like-img"
+          :class="{
+            active: reactions.find(
+              (e) => e.UserId === $store.state.connectedUser.id
+            ),
+          }"
+          src="../assets/like_white.png"
+          alt="like"
+        />
         <span class="span-color">Like</span>
-        {{ reactions.filter(e => e.type === 1).length}}
-        <img @click="sendDislike" class="like-img" :class="{active: reactions.find(e => e.UserId === $store.state.connectedUser.id)}" src="../assets/dislike_white.png" alt="like" />
+        {{ reactions.filter((e) => e.type === 1).length }}
+        <img
+          @click="sendDislike"
+          class="like-img"
+          :class="{
+            active: reactions.find(
+              (e) => e.UserId === $store.state.connectedUser.id
+            ),
+          }"
+          src="../assets/dislike_white.png"
+          alt="like"
+        />
         <span class="span-color">Dislike</span>
-        {{ reactions.filter(e => e.type === 0).length}}
+        {{ reactions.filter((e) => e.type === 0).length }}
       </div>
     </div>
-    <input aria-label="reply-zone" v-model="content" class="reply-area" placeholder="Ecrivez votre commentaire...."/>
+    <input
+      aria-label="reply-zone"
+      v-model="content"
+      class="reply-area"
+      placeholder="Ecrivez votre commentaire...."
+    />
     <ul v-if="showComments" class="comment-list">
       <li class="replyy" v-for="(comment, index) in comments" :key="comment">
         <div class="user-reply-info">
           <div class="user-infos">
-            <router-link :to="{name: 'user', params: {userId: comment.User.id}}"><img class="comment-logo" :src="comment.User?.avatar" alt="logo-user"/></router-link>
-            <router-link class="name-container" :to="{name: 'user', params: {userId: comment.User.id}}">
-              <span class="span-color-comment">{{ comment.User.firstname }}</span> 
-              <span class="span-color-comment">{{ comment.User.username }}</span>
+            <router-link
+              :to="{ name: 'user', params: { userId: comment.User.id } }"
+              ><img
+                class="comment-logo"
+                :src="comment.User?.avatar"
+                alt="logo-user"
+            /></router-link>
+            <router-link
+              class="name-container"
+              :to="{ name: 'user', params: { userId: comment.User.id } }"
+            >
+              <span class="span-color-comment">{{
+                comment.User.firstname
+              }}</span>
+              <span class="span-color-comment">{{
+                comment.User.username
+              }}</span>
             </router-link>
-            <span class="span-color-comment">{{ new Date(comment.updatedAt).toLocaleString() }}</span>
+            <span class="span-color-comment">{{
+              new Date(comment.updatedAt).toLocaleString()
+            }}</span>
           </div>
-          <form class="comment-content-area" v-if="comment.displayEdit" @submit.prevent="submitCommentEdit(index)">
-            <textarea v-model="comment.content" ></textarea>
-            <button aria-label="input-modified" class="input-modified-comment" type="submit">Modifier</button>
+          <form
+            class="comment-content-area"
+            v-if="comment.displayEdit"
+            @submit.prevent="submitCommentEdit(index)"
+          >
+            <textarea v-model="comment.content"></textarea>
+            <button
+              aria-label="input-modified"
+              class="input-modified-comment"
+              type="submit"
+            >
+              Modifier
+            </button>
           </form>
           <p class="span-color-comment" v-else>{{ comment.content }}</p>
         </div>
@@ -151,13 +207,22 @@ export default {
           alt="toggleOptions"
         />
         <ul v-if="comment.displayOptions" class="dots-modifications-ul">
-          <li @click="toggleEditComment(index)" class="dots-modifications-li">Modifier le commentaire</li>
-          <li @click="deleteComment(index)" class="dots-delete-comment">Supprimer le commentaire</li>
+          <li @click="toggleEditComment(index)" class="dots-modifications-li">
+            Modifier le commentaire
+          </li>
+          <li @click="deleteComment(index)" class="dots-delete-comment">
+            Supprimer le commentaire
+          </li>
         </ul>
       </li>
     </ul>
     <div class="comment-button">
-      <button aria-label="form" @click="sendComment" class="button-comment" type="button">
+      <button
+        aria-label="form"
+        @click="sendComment"
+        class="button-comment"
+        type="button"
+      >
         Commenter!
       </button>
     </div>
@@ -173,7 +238,7 @@ export default {
   align-items: center;
 }
 
-.user-infos{
+.user-infos {
   display: flex;
   color: white;
   justify-content: space-between;
@@ -228,7 +293,7 @@ export default {
 }
 
 .user-reply-info {
-  background-color: #D7d7d7;
+  background-color: #d7d7d7;
   width: auto;
   padding: 5px;
   border-radius: 10px;
@@ -255,19 +320,19 @@ export default {
   margin: 10px;
 }
 
-.comment-content-area{
+.comment-content-area {
   width: 100%;
 }
 
 .span-color-comment {
-  color: #091F43;
+  color: #091f43;
 }
 
 .input-modified-comment {
-    color: black;
-    float: right;
-    height: 50px;
-    width: 100px;
+  color: black;
+  float: right;
+  height: 50px;
+  width: 100px;
 }
 
 .dots {
@@ -298,7 +363,6 @@ export default {
 .dots-modifications-li {
   cursor: pointer;
   padding-left: 20px;
-
 }
 
 .dots-modifications-li:hover {
@@ -312,7 +376,6 @@ export default {
 .dots-delete-comment {
   cursor: pointer;
   padding-left: 20px;
-
 }
 
 .like-img {
@@ -322,8 +385,7 @@ export default {
   color: #040404;
 }
 
-
-.like-img.active{
+.like-img.active {
   fill: #f55555;
 }
 

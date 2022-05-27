@@ -1,4 +1,3 @@
-
 function b64DecodeUnicode(str) {
   return decodeURIComponent(
     Array.prototype.map
@@ -12,6 +11,6 @@ function b64DecodeUnicode(str) {
 
 export function parseJwt(token) {
   return JSON.parse(
-    b64DecodeUnicode(token.split(("."))[1].replace("-", "+").replace("_", "/"))
+    b64DecodeUnicode(token.split(".")[1].replace("-", "+").replace("_", "/"))
   );
 }

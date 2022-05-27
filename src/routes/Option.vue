@@ -61,13 +61,16 @@ export default {
       const data = await res.json();
       this.$store.commit("SET_CONNECTED_USER", data.user);
     },
-    async deleteUser(){
-      const res = await fetch("http://localhost:3000/api/users/"+ this.$store.state.connectedUser.id, {
-        method: "DELETE",
-        headers: {
-          "Authorization": "Bearer " + this.$store.state.saveToken
-        },
-      })
+    async deleteUser() {
+      const res = await fetch(
+        "http://localhost:3000/api/users/" + this.$store.state.connectedUser.id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + this.$store.state.saveToken,
+          },
+        }
+      );
       localStorage.clear();
       this.$store.commit("SET_SAVE_TOKEN", null);
       this.$store.commit("SET_CONNECTED_USER", {});
@@ -82,26 +85,36 @@ export default {
     <div class="main-container-options">
       <div class="infos">
         <div class="modify-info">
-          <span class="title-input-modify">Modifier votre nom</span>  
-          <input aria-label="username-area" class="name-area" type="text" v-model="this.user.username" />
-        </div>
-        <div class="modify-info">
-          <span class="title-input-modify">Modifier votre prénom</span>  
-          <input aria-label="firstname-area" class="name-area" type="text" v-model="this.user.firstname" />
-        </div>
-        <div class="modify-info">
-          <span class="title-input-modify">Modifier votre description</span>  
+          <span class="title-input-modify">Modifier votre nom</span>
           <input
-          aria-label="description"
+            aria-label="username-area"
+            class="name-area"
+            type="text"
+            v-model="this.user.username"
+          />
+        </div>
+        <div class="modify-info">
+          <span class="title-input-modify">Modifier votre prénom</span>
+          <input
+            aria-label="firstname-area"
+            class="name-area"
+            type="text"
+            v-model="this.user.firstname"
+          />
+        </div>
+        <div class="modify-info">
+          <span class="title-input-modify">Modifier votre description</span>
+          <input
+            aria-label="description"
             class="name-area"
             type="text"
             v-model="this.user.description"
           />
         </div>
         <div class="modify-info">
-          <span class="title-input-modify">Modifier votre password</span>  
+          <span class="title-input-modify">Modifier votre password</span>
           <input
-          aria-label="password"
+            aria-label="password"
             class="name-area"
             type="password"
             v-model="this.user.password"
@@ -112,16 +125,14 @@ export default {
           <button class="button-update-infos" @click="updateInfos">
             Modifier les infos
           </button>
-          <button
-            class="button-change-avatar"
-            @click="$refs.file.click()"
-          >Modifier l'avatar
+          <button class="button-change-avatar" @click="$refs.file.click()">
+            Modifier l'avatar
           </button>
           <div class="preview-avatar-to-modify">
             <span class="avatar-preview">Preview de l'avatar</span>
-            <img class="avatar-loaded-user" :src="avatar" alt="loaded-avatar"/>
+            <img class="avatar-loaded-user" :src="avatar" alt="loaded-avatar" />
             <input
-            aria-label="avatar"
+              aria-label="avatar"
               @change="changeFile"
               ref="file"
               class="submit-avatar"
@@ -129,8 +140,12 @@ export default {
               value=""
               id="update-avatar"
             />
-            <button class="update-avatar" @click="sendAvatar">Envoyer l'avatar</button>
-            <button  class="button-delete-account" @click="deleteUser">Supprimer le compte</button>
+            <button class="update-avatar" @click="sendAvatar">
+              Envoyer l'avatar
+            </button>
+            <button class="button-delete-account" @click="deleteUser">
+              Supprimer le compte
+            </button>
           </div>
         </div>
       </div>
@@ -140,7 +155,7 @@ export default {
 
 <style>
 .main-container-options {
-  background-color: #D7D7D7;
+  background-color: #d7d7d7;
   color: white;
   display: flex;
   justify-content: center;
@@ -170,7 +185,7 @@ export default {
 
 .title-input-modify {
   color: #0c182d;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 textarea {
@@ -197,13 +212,13 @@ textarea {
   border-radius: 20px;
 }
 
-.button-delete-account    {
+.button-delete-account {
   cursor: pointer;
   width: 200px;
   height: 50px;
   border-radius: 20px;
   margin: 20px;
-  background-color: #D1515A;
+  background-color: #d1515a;
 }
 .preview-avatar-to-modify {
   display: flex;
@@ -218,11 +233,11 @@ textarea {
 }
 
 .submit-avatar {
-  background-color: #D7D7D7;
+  background-color: #d7d7d7;
 }
 
 .submit-info {
-  background-color: #D7D7D7;
+  background-color: #d7d7d7;
   width: 100px;
 }
 
@@ -232,11 +247,11 @@ textarea {
   color: white;
 }
 
-.updated-avatar{
+.updated-avatar {
   color: black;
 }
 
-#update-avatar{
+#update-avatar {
   display: none;
 }
 
@@ -245,10 +260,9 @@ textarea {
 }
 
 @media screen and (max-width: 351px) {
-  .avatar-loaded-user{
+  .avatar-loaded-user {
     max-width: 300px;
     height: 200px;
   }
 }
-
 </style>

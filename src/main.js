@@ -9,8 +9,6 @@ import Post from "./routes/Post.vue";
 import Option from "./routes/Option.vue";
 import User from "./routes/User.vue";
 
-
-
 const routes = [
   {
     path: "/login",
@@ -83,7 +81,7 @@ const store = Vuex.createStore({
     },
     SET_CONNECTED_USER(state, value) {
       state.connectedUser = value;
-      localStorage.setItem("connectedUser",JSON.stringify(value))
+      localStorage.setItem("connectedUser", JSON.stringify(value));
     },
   },
 });
@@ -91,17 +89,14 @@ const store = Vuex.createStore({
 router.beforeEach((to, from, next) => {
   if (to.meta.auth && !JSON.parse(localStorage.getItem("saveToken")))
     return next({ name: "login" });
-  if(!to.meta.auth && JSON.parse(localStorage.getItem("saveToken")))
-  return next({ name: "posts" });
+  if (!to.meta.auth && JSON.parse(localStorage.getItem("saveToken")))
+    return next({ name: "posts" });
   return next();
 });
 
 const app = createApp(App);
 
-
 app.use(store);
 app.use(router);
 
 app.mount("#app");
-
-
