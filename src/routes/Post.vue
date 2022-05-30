@@ -15,7 +15,7 @@ export default {
       image: null,
     };
   },
-  created() {
+  created() {  
     this.loadPosts();
   },
   methods: {
@@ -84,6 +84,9 @@ export default {
         headers,
         body: JSON.stringify({ content: this.content }),
       });
+      if(this.content === "" ){
+        return window.alert("Vous ne pouvez pas envoyer de contenu vide!")
+      };
       this.content = "";
       this.loadPosts();
     },

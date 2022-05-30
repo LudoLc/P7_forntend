@@ -121,7 +121,7 @@ export default {
           src="../assets/comment_white.png"
           alt="comment-message"
         />
-        <span class="span-color">Commentaires</span>
+        <span class="span-color">{{ comments.length }} Commentaires</span>
       </div>
       <div>
         <img
