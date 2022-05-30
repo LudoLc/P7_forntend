@@ -168,7 +168,6 @@ ul {
   padding-top: 20px;
   color: white;
   cursor: pointer;
-
   font-size: 20px;
 }
 
